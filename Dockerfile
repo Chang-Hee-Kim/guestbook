@@ -10,6 +10,8 @@ COPY backend/ .
 
 COPY templates/ /app/templates/
 
+COPY static/ /app/static/
+
 EXPOSE 5001
 
 CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:${PORT}"]
