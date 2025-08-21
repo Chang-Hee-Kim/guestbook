@@ -10,7 +10,7 @@ COPY backend/ .
 
 COPY templates/ /app/templates/
 
-COPY static/ /app/static/
+COPY frontend-vanilla/ /app/frontend-vanilla/
 
 EXPOSE 5001
 
