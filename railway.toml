@@ -4,7 +4,7 @@ root = "backend"
 buildCommand = "python -m pip install -r requirements.txt"
 
 [deploy]
-startCommand = "gunicorn backend.app:app"
+startCommand = "gunicorn app:app"
 preDeployCommand = "flask init-db"
 healthcheckPath = "/"
 healthcheckTimeout = 120
