@@ -8,7 +8,7 @@ load_dotenv()
 
 # The template_folder and static_folder are set to point to root-level directories
 # which we will create later for the traditional frontend.
-app = Flask(__name__, static_folder='../frontend-vanilla', template_folder='../templates')
+app = Flask(__name__, static_folder='../../static', template_folder='../templates')
 
 # Allow CORS for API routes to be accessed by the React frontend
 CORS(app, resources={r"/api/*": {"origins": "*"}}) 
