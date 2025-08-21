@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageInput = document.getElementById('message');
     const entriesContainer = document.getElementById('entries-container');
     const errorElement = document.getElementById('error');
+    const deleteAllBtn = document.getElementById('delete-all-btn'); // Get reference to new button
 
     const showError = (message) => {
         errorElement.textContent = message;
@@ -22,8 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await axios.get(API_URL);
             const entries = response.data;
             
-            // Clear existing entries
-            entriesContainer.innerHTML = '<h2>Entries</h2>'; 
+            // Clear existing entries, but keep the H2 and Delete All button
+            entriesContainer.innerHTML = '<h2>Entries</h2>';
+            entriesContainer.appendChild(deleteAllBtn); // Re-append the button after clearing
             
             if (entries.length > 0) {
                 entries.forEach(entry => {
@@ -38,8 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     nameP.className = 'name';
                     nameP.textContent = `- ${entry.name} on ${new Date(entry.timestamp).toLocaleString()}`;
                     
+                    // Add delete button for individual entry
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-entry-btn';
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.dataset.id = entry.id; // Store entry ID
+                    deleteBtn.addEventListener('click', handleDeleteEntry); // Add event listener
+                    
                     entryDiv.appendChild(messageP);
                     entryDiv.appendChild(nameP);
+                    entryDiv.appendChild(deleteBtn); // Append delete button
                     entriesContainer.appendChild(entryDiv);
                 });
             } else {
@@ -76,7 +86,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // New function to handle individual entry deletion
+    const handleDeleteEntry = async (e) => {
+        clearError();
+        const entryId = e.target.dataset.id;
+        if (confirm('Are you sure you want to delete this entry?')) {
+            try {
+                await axios.delete(`${API_URL}/${entryId}`);
+                fetchEntries(); // Refresh entries
+            } catch (err) {
+                showError('Failed to delete entry.');
+                console.error(err);
+            }
+        }
+    };
+
+    // New function to handle deleting all entries
+    const handleDeleteAllEntries = async () => {
+        clearError();
+        if (confirm('Are you sure you want to delete ALL entries? This cannot be undone.')) {
+            try {
+                await axios.delete(API_URL);
+                fetchEntries(); // Refresh entries
+            } catch (err) {
+                showError('Failed to delete all entries.');
+                console.error(err);
+            }
+        }
+    };
+
     form.addEventListener('submit', handleSubmit);
+    deleteAllBtn.addEventListener('click', handleDeleteAllEntries); // Add event listener for delete all button
 
     // Initial fetch of entries when the page loads
     fetchEntries();
