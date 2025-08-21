@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla JS Guestbook</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vanilla JS Guestbook</h1>
+        
+        <p id="error" class="error" style="display:none;"></p>
+
+        <div class="card">
+            <h2>Leave a Message</h2>
+            <form id="guestbook-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" rows="3" required></textarea>
+                </div>
+                <button type="submit">Sign Guestbook</button>
+            </form>
+        </div>
+
+        <div class="entries" id="entries-container">
+            <h2>Entries</h2>
+            <!-- Entries will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
