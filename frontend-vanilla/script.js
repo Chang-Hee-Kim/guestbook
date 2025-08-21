@@ -23,9 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await axios.get(API_URL);
             const entries = response.data;
             
-            // Clear existing entries, but keep the H2 and Delete All button
-            entriesContainer.innerHTML = '<h2>Entries</h2>';
-            entriesContainer.appendChild(deleteAllBtn); // Re-append the button after clearing
+            // Clear only dynamically added entries, preserve H2 and Delete All button
+            // Remove all children except the first two (H2 and Delete All button)
+            while (entriesContainer.children.length > 2) {
+                entriesContainer.removeChild(entriesContainer.lastChild);
+            }
             
             if (entries.length > 0) {
                 entries.forEach(entry => {
