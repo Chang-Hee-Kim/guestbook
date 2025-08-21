@@ -24,10 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const entries = response.data;
             
             // Clear only dynamically added entries, preserve H2 and Delete All button
-            // Remove all children except the first two (H2 and Delete All button)
-            while (entriesContainer.children.length > 2) {
-                entriesContainer.removeChild(entriesContainer.lastChild);
-            }
+            // Remove all existing entry cards
+            const existingEntries = entriesContainer.querySelectorAll('.card.entry');
+            existingEntries.forEach(entry => entry.remove());
             
             if (entries.length > 0) {
                 entries.forEach(entry => {
