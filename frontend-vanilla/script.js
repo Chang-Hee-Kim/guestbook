@@ -27,6 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Remove all existing entry cards
             const existingEntries = entriesContainer.querySelectorAll('.card.entry');
             existingEntries.forEach(entry => entry.remove());
+
+            // Remove any existing "No entries yet" message
+            const existingNoEntries = entriesContainer.querySelector('.no-entries-message');
+            if (existingNoEntries) {
+                existingNoEntries.remove();
+            }
             
             if (entries.length > 0) {
                 entries.forEach(entry => {
@@ -56,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 const noEntriesP = document.createElement('p');
                 noEntriesP.textContent = 'No entries yet. Be the first!';
+                noEntriesP.className = 'no-entries-message'; // Add a class for easy selection
                 entriesContainer.appendChild(noEntriesP);
             }
         } catch (err) {
