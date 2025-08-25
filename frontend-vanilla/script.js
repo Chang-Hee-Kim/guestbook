@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_URL = 'http://127.0.0.1:5001/api/entries';
+    const API_URL = 'https://guestbook-production-b667.up.railway.app/api/entries';
 
     const form = document.getElementById('guestbook-form');
     const nameInput = document.getElementById('name');
